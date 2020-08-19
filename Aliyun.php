@@ -1,7 +1,13 @@
 <?php
 namespace bigDream\CdnUrlAuth;
 
-class Tencent
+/**
+ * 阿里云CDN链接地址鉴权类
+ * @package bigDream\CdnUrlAuth
+ * @author jwj <jwjbjg@gmail.com>
+ * @copyright jwj
+ */
+class Aliyun
 {
     /**
      * @var string 鉴权密钥
@@ -14,28 +20,14 @@ class Tencent
     protected $signName;
 
     /**
-     * @var string 时间参数名
-     */
-    protected $timeName;
-
-    /**
-     * @var string 将时间戳十六进制
-     */
-    protected $dechexTime;
-
-    /**
      * Tencent constructor.
      * @param $secret
      * @param string $signName
-     * @param string $timeName
-     * @param false $dechexTime
      */
-    public function __construct($secret, $signName = 'sign', $timeName = 't', $dechexTime = false)
+    public function __construct($secret, $signName = 'auth_key')
     {
         $this->secret = $secret;
         $this->signName = $signName;
-        $this->timeName = $timeName;
-        $this->dechexTime = $dechexTime;
     }
 
     /**
@@ -45,7 +37,7 @@ class Tencent
      * @param string $rand 随机数
      * @param string $uid 用户ID
      * @return string
-     * @link https://url.cn/SlpSQAAV
+     * @link https://help.aliyun.com/document_detail/85113.html?source=5176.11533457&userCode=acpn6od4
      * @throws \Exception
      */
     public function typeA($uri, $timestamp = null, $rand = null, $uid = '0')
@@ -67,7 +59,7 @@ class Tencent
      * @param string $uri 需要鉴权的链接
      * @param int $timestamp 当前时间时间戳
      * @return string
-     * @link https://url.cn/CZHEvmLW
+     * @link https://help.aliyun.com/document_detail/85114.html?source=5176.11533457&userCode=acpn6od4
      * @throws \Exception
      */
     public function typeB($uri, $timestamp = null)
@@ -88,7 +80,7 @@ class Tencent
      * @param string $uri 需要鉴权的链接
      * @param int $timestamp 当前时间时间戳
      * @return string
-     * @link https://url.cn/xiQph3Kb
+     * @link https://help.aliyun.com/document_detail/85115.html?source=5176.11533457&userCode=acpn6od4
      * @throws \Exception
      */
     public function typeC($uri, $timestamp = null)
@@ -101,27 +93,6 @@ class Tencent
         $md5hash = md5($this->secret . $data['path'] . $timestamp);
 
         $data['path'] = sprintf('/%s/%s%s', $md5hash, $timestamp, $data['path']);
-
-        return $this->buildUrl($data);
-    }
-
-    /**
-     * 鉴权方式D
-     * @param string $uri 需要鉴权的链接
-     * @param int $timestamp 当前时间时间戳
-     * @return string
-     * @link https://url.cn/FbBZ2VJ1
-     * @throws \Exception
-     */
-    public function typeD($uri, $timestamp = null)
-    {
-        $data = $this->parseUrl($uri);
-
-        if (null === $timestamp) $timestamp = time();
-        if ($this->dechexTime) $timestamp = dechex($timestamp);
-
-        $data['query'][$this->signName] = md5($this->secret . $data['path'] . $timestamp);
-        $data['query'][$this->timeName] = $timestamp;
 
         return $this->buildUrl($data);
     }

@@ -1,0 +1,29 @@
+{
+  "name": "big-dream/cdn-url-auth",
+  "description": "CDN URL地址鉴权",
+  "version": "0.0.1",
+  "keywords": [
+    "cdn",
+    "url",
+    "Authentication",
+    "Tencent",
+    "Aliyun"
+  ],
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "jwj",
+      "email": "jwjbjg@gmail.com",
+      "homepage": "https://www.ll00.cn"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.7"
+  },
+  "autoload": {
+    "psr-4": {
+      "bigDream\\CdnUrlAuth\\": ""
+    },
+    "files": []
+  }
+}
