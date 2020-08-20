@@ -1,6 +1,12 @@
 <?php
 namespace bigDream\CdnUrlAuth;
 
+/**
+ * 腾讯云CDN鉴权链接地址生成类
+ * @package bigDream\CdnUrlAuth
+ * @author jwj <jwjbjg@gmail.com>
+ * @copyright jwj
+ */
 class Tencent
 {
     /**

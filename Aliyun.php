@@ -2,7 +2,7 @@
 namespace bigDream\CdnUrlAuth;
 
 /**
- * 阿里云CDN链接地址鉴权类
+ * 阿里云CDN鉴权链接地址生成类
  * @package bigDream\CdnUrlAuth
  * @author jwj <jwjbjg@gmail.com>
  * @copyright jwj
