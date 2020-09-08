@@ -1,7 +1,7 @@
 {
   "name": "big-dream/cdn-url-auth",
   "description": "CDN URL地址鉴权",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "keywords": [
     "cdn",
     "url",

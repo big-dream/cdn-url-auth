@@ -20,14 +20,21 @@ class Aliyun
     protected $signName;
 
     /**
+     * @var int 过期时间（秒）
+     */
+    protected $expire;
+
+    /**
      * Tencent constructor.
      * @param $secret
      * @param string $signName
+     * @param int $signName
      */
-    public function __construct($secret, $signName = 'auth_key')
+    public function __construct($secret, $signName = 'auth_key', $expire = 3600)
     {
         $this->secret = $secret;
         $this->signName = $signName;
+        $this->expire = $expire;
     }
 
     /**
@@ -44,7 +51,7 @@ class Aliyun
     {
         $data = $this->parseUrl($uri);
 
-        if (null === $timestamp) $timestamp = time();
+        if (null === $timestamp) $timestamp = time() + $this->expire;
         if (null === $rand) $rand = md5(microtime());
 
         $md5hash = md5(sprintf('%s-%s-%s-%s-%s', $data['path'], $timestamp, $rand, $uid, $this->secret));
@@ -66,7 +73,7 @@ class Aliyun
     {
         $data = $this->parseUrl($uri);
 
-        if (null === $timestamp) $timestamp = date('YmdHi');
+        if (null === $timestamp) $timestamp = date('YmdHi', time() + $this->expire);
 
         $md5hash = md5($this->secret . $timestamp . $data['path']);
 
@@ -87,7 +94,7 @@ class Aliyun
     {
         $data = $this->parseUrl($uri);
 
-        if (null === $timestamp) $timestamp = time();
+        if (null === $timestamp) $timestamp = time() + $this->expire;
         $timestamp = dechex($timestamp);
 
         $md5hash = md5($this->secret . $data['path'] . $timestamp);

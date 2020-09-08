@@ -17,7 +17,7 @@ $auth = new \bigDream\CdnUrlAuth\Tencent(
     'r1u1sxtmgf8u5u9eazh2wpj',  // [必传]鉴权秘钥
     'sign',                     // [选传]鉴权参数名（鉴权方式TypeA和TypeD会用到）
     't',                        // [选传]时间参数名（鉴权方式TypeD会用到）
-    false,                      // [选传]将时间戳十六进制（鉴权方式TypeD会用到）
+    false                       // [选传]将时间戳十六进制（鉴权方式TypeD会用到）
 );
 ```
 
@@ -66,6 +66,7 @@ $auth->typeD(
 $auth = new \bigDream\CdnUrlAuth\Aliyun(
     'r1u1sxtmgf8u5u9eazh2wpj',  // [必传]鉴权秘钥
     'auth_key',                 // [选传]鉴权参数名（鉴权方式TypeA和TypeD会用到）
+    3600                        // [选传]链接有效期（秒）
 );
 ```
 
@@ -74,7 +75,7 @@ $auth = new \bigDream\CdnUrlAuth\Aliyun(
 ```php
 $auth->typeA(
     '/files/install/wampserver3.2.3_x64.exe',   // [必传]需要鉴权的链接
-    time(),                                     // [选传]当前时间的时间戳
+    time(),                                     // [选传]链接失效时间的时间戳
     md5(microtime()),                           // [选传]随机数
     '0'                                         // [选传]用户ID 
 );
@@ -85,7 +86,7 @@ $auth->typeA(
 ```php
 $auth->typeB(
     '/files/install/wampserver3.2.3_x64.exe',   // [必传]需要鉴权的链接
-    time()                                      // [选传]当前时间的时间戳
+    time()                                      // [选传]链接失效时间的时间戳
 );
 ```
 
@@ -94,6 +95,6 @@ $auth->typeB(
 ```php
 $auth->typeC(
     '/files/install/wampserver3.2.3_x64.exe',   // [必传]需要鉴权的链接
-    time()                                      // [选传]当前时间的时间戳
+    time()                                      // [选传]链接失效时间的时间戳
 );
 ```
